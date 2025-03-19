@@ -27,6 +27,12 @@ public class TaskModel {
     @Column(name = "status")
     private Status status;
 
+    @Column(name = "usuario")
+    @ManyToOne
+    private UserModel usuario;
+
+
+
 
 
 
