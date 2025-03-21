@@ -5,10 +5,13 @@ import com.senai.task.dtos.UserDto;
 import com.senai.task.models.UserModel;
 import com.senai.task.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class UserService {
 
     @Autowired
@@ -63,6 +66,53 @@ public class UserService {
         }
 
         return mensagem;
+
+    }
+
+    public List<UserDto> listarUsuarios(){
+
+        List<UserDto> listaUserDto = new ArrayList<>();
+
+        List<UserModel> listaUserModel = repository.findAll();
+
+        for (UserModel userModel : listaUserModel){
+
+            UserDto userDto = new UserDto();
+
+            userDto.setNome(userModel.getNome());
+            userDto.setEmail(userModel.getEmail());
+
+            listaUserDto.add(userDto);
+
+        }
+
+        return listaUserDto;
+
+    }
+
+    public MessageDto excluirUsuario (String email){
+
+        List<UserModel> listaUserModel = repository.findAll();
+
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSucesso(false);
+        messageDto.setMensagem("Erro ao excluir");
+
+        UserModel userModel = new UserModel();
+
+        for(UserModel user : listaUserModel){
+            if (user.getEmail().equals(email)){
+                userModel = user;
+
+            }
+            listaUserModel.remove(userModel);
+            messageDto.setSucesso(true);
+            messageDto.setMensagem("Excluido usuário com sucesso!");
+
+        }
+
+        return messageDto;
+
 
     }
 

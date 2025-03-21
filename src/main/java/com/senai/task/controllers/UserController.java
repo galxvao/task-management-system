@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/task")
 public class UserController {
@@ -27,6 +30,19 @@ public class UserController {
         }
 
     }
+
+    @GetMapping("/user")
+    ResponseEntity<List<UserDto>> obterUsuarios (){
+
+        List<UserDto> lista = service.listarUsuarios();
+
+        if(lista.isEmpty()){
+            return ResponseEntity.status(404).body(lista);
+        }
+
+        return ResponseEntity.ok().body(lista);
+
+    }
     @PutMapping("user/{email}")
     public ResponseEntity<MessageDto> atualizarUsuario (@PathVariable String email, @RequestBody UserDto userDto){
 
@@ -38,6 +54,21 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagem);
         }
 
+
+
+    }
+
+    @DeleteMapping("/user/{email}")
+    public ResponseEntity<MessageDto> excluirUsuario (@PathVariable String email){
+
+        MessageDto messageDto = service.excluirUsuario(email);
+
+
+        if (messageDto.isSucesso()) {
+            return ResponseEntity.ok().body(messageDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(messageDto);
+        }
     }
 
 
