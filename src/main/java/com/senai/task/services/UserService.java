@@ -43,7 +43,7 @@ public class UserService {
         return messageDto;
     }
 
-    public MessageDto atualizarUsuario (UserDto usuarioAtualizar, String email){
+    public MessageDto atualizarUsuario(UserDto usuarioAtualizar, String email) {
 
         Optional<UserModel> usuarioOptional = repository.findByEmail(email);
 
@@ -52,9 +52,9 @@ public class UserService {
         mensagem.setMensagem("Usuário não encontrado.");
         mensagem.setSucesso(false);
 
-        UserModel usuarioModel =  usuarioOptional.get();
+        UserModel usuarioModel = usuarioOptional.get();
 
-        if(usuarioModel.getEmail().equals(usuarioAtualizar.getEmail())){
+        if (usuarioModel.getEmail().equals(usuarioAtualizar.getEmail())) {
 
             usuarioModel.setNome(usuarioAtualizar.getNome());
             usuarioModel.setEmail(usuarioAtualizar.getEmail());
@@ -69,13 +69,13 @@ public class UserService {
 
     }
 
-    public List<UserDto> listarUsuarios(){
+    public List<UserDto> listarUsuarios() {
 
         List<UserDto> listaUserDto = new ArrayList<>();
 
         List<UserModel> listaUserModel = repository.findAll();
 
-        for (UserModel userModel : listaUserModel){
+        for (UserModel userModel : listaUserModel) {
 
             UserDto userDto = new UserDto();
 
@@ -90,7 +90,7 @@ public class UserService {
 
     }
 
-    public MessageDto excluirUsuario (String email){
+    public MessageDto excluirUsuario(String email) {
 
         List<UserModel> listaUserModel = repository.findAll();
 
@@ -100,26 +100,24 @@ public class UserService {
 
         UserModel userModel = new UserModel();
 
-        for(UserModel user : listaUserModel){
-            if (user.getEmail().equals(email)){
+
+        for (UserModel user : listaUserModel) {
+            if (user.getEmail().equals(email)) {
                 userModel = user;
 
+                messageDto.setSucesso(true);
+                messageDto.setMensagem("Usuário excluido com sucesso!");
             }
-            listaUserModel.remove(userModel);
-            messageDto.setSucesso(true);
-            messageDto.setMensagem("Excluido usuário com sucesso!");
 
         }
+
+        repository.delete(userModel);
+
 
         return messageDto;
 
 
     }
-
-
-
-
-
 
 
 }
