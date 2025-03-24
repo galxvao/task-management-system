@@ -1,9 +1,10 @@
 package com.senai.task.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
-
+@Data
 @Entity
 @Table(name = "tarefas")
 public class TaskModel {
@@ -27,7 +28,9 @@ public class TaskModel {
     @Column(name = "status")
     private Status status;
 
-
+   @ManyToOne
+   @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private UserModel usuario;
 
 
 
