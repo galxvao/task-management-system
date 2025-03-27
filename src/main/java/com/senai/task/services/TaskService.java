@@ -1,5 +1,6 @@
 package com.senai.task.services;
 
+import com.senai.task.dtos.MessageDto;
 import com.senai.task.dtos.TaskDto;
 import com.senai.task.models.TaskModel;
 import com.senai.task.repositories.TaskRepository;
@@ -29,8 +30,18 @@ public class TaskService {
             taskDto.setId(taskModel.getId());
             taskDto.setNome(taskModel.getNome());
             taskDto.setData(taskModel.getData());
-            taskDto.setStatus(taskModel.getStatus()); // Aprender como utilizar o enum
+            //taskDto.setStatus(taskModel.getStatus()); APRENDER UTILIZAR ENUM
+
+            listaDto.add(taskDto);
         }
+
+        return listaDto;
+    }
+
+    public MessageDto inserirTarefa(Long id, TaskDto taskDto){
+
+
+
     }
 
 
