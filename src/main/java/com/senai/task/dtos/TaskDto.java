@@ -1,7 +1,7 @@
 package com.senai.task.dtos;
 
 
-import com.senai.task.models.TaskModel;
+import com.senai.task.enums.Status;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,15 +24,14 @@ public class TaskDto {
     private Date data;
 
     @NotNull(message = "O status da tarefa não pode ser nulo")
-    enum Status {
-        EM_ABERTO, PENDENTE, CONCLUIDO, CANCELADO;
-    }
-
     private Status status;
 
     @NotBlank(message = "O e-mail do usuário não pode estar em branco.")
     @Email(message = "O e-mail do usuário deve ser válido.")
     private String emailUsuario;
+
+    private String mensagem;
+
 
 
 

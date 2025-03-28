@@ -2,6 +2,7 @@ package com.senai.task.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.engine.spi.Status;
 
 import java.util.Date;
 @Data
@@ -20,10 +21,6 @@ public class TaskModel {
 
     @Column(name = "data")
     private Date data;
-
-    enum Status {
-        EM_ABERTO, PENDENTE, CONCLUIDO, CANCELADO;
-    }
 
     @Column(name = "status")
     private Status status;

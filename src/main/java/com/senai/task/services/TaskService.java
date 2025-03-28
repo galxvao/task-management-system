@@ -1,9 +1,9 @@
 package com.senai.task.services;
 
-import com.senai.task.dtos.MessageDto;
 import com.senai.task.dtos.TaskDto;
 import com.senai.task.models.TaskModel;
 import com.senai.task.repositories.TaskRepository;
+import com.senai.task.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +14,17 @@ import java.util.List;
 public class TaskService {
 
     @Autowired
-    TaskRepository repository;
+    TaskRepository taskRepository;
+
+    @Autowired
+    UserRepository userRepository
 
 
     public List<TaskDto> obterTarefas(){
 
         List<TaskDto> listaDto = new ArrayList<>();
 
-        List<TaskModel> listaModel =  repository.findAll();
+        List<TaskModel> listaModel =  taskRepository.findAll();
 
         for (TaskModel taskModel : listaModel){
 
@@ -29,8 +32,9 @@ public class TaskService {
 
             taskDto.setId(taskModel.getId());
             taskDto.setNome(taskModel.getNome());
+            taskDto.setDescricao(taskModel.getDescricao());
             taskDto.setData(taskModel.getData());
-            //taskDto.setStatus(taskModel.getStatus()); APRENDER UTILIZAR ENUM
+            taskDto.setStatus(taskModel.getStatus());
 
             listaDto.add(taskDto);
         }
@@ -38,11 +42,11 @@ public class TaskService {
         return listaDto;
     }
 
-    public MessageDto inserirTarefa(Long id, TaskDto taskDto){
+    /*public MessageDto inserirTarefa(Long id, TaskDto taskDto){
 
 
 
     }
 
-
+*/
 }
